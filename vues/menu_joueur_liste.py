@@ -1,0 +1,33 @@
+from time import sleep as sl
+from os import system as sys
+from vues.outils_vues import OutilsVues
+from modeles.joueur import Joueur
+
+
+def menu_joueur_liste():
+    valeur_quitter = 0
+    while valeur_quitter != 1:
+        sys("clear")
+        print("\nMenu liste des joueurs: ")
+        print("\n1 - Par ordre alphabétique\n2 - Par classement\n3 - Retour\n4 - Quitter")
+        try:
+            choix_menu_liste_joueur = int(input("\nVotre choix: "))
+        except ValueError:
+            print("\nVous n'avez pas saisi un chiffre.")
+            sl(2)
+            continue
+        if choix_menu_liste_joueur == 1:
+            print("\n---------------------------\n")
+            for arg in Joueur.joueurs_alpha():
+                print(arg)
+            input("\nAppuyer sur entrer pour continuer")
+        if choix_menu_liste_joueur == 2:
+            print("\n---------------------------\n")
+            for arg in Joueur.joueurs_classement():
+                print(arg)
+            input("\nAppuyer sur entrer pour continuer")
+        if choix_menu_liste_joueur == 3:
+            return
+        if choix_menu_liste_joueur == 4:
+            instance_class = OutilsVues()
+            instance_class.quitter()
