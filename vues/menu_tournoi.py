@@ -17,8 +17,13 @@ def menu_tournoi():
             sl(2)
             continue
         if choix_menu_tournoi == 1:
-            print("\n")
-            for arg in Tournoi.tournois_liste():
+            print("\n---------------------------\n")
+            liste_tounois = Tournoi.tournois_liste()
+            if liste_tounois == 0:
+                print("Il n'y a aucun tournois d'enregistrer, veuillez ajouter un tournoi via le menu.")
+                input("\nAppuyer sur entrer pour continuer")
+                return
+            for arg in liste_tounois:
                 print(arg)
             input("\nAppuyer sur entrer pour continuer")
         if choix_menu_tournoi == 2:

@@ -102,7 +102,11 @@ class Joueur:
                     nom_prenom = nom + ' ' + prenom + '\n'
                     nom_list.append(nom_prenom)
                     nom_list.sort()
-            return nom_list
+            if len(nom_list) < 2:
+                return 0
+            if len(nom_list) >= 2:
+                del nom_list[0]
+                return nom_list
 
     def joueurs_classement():
         with open('data/joueurs.json', 'r') as joueurs_data:
@@ -123,13 +127,17 @@ class Joueur:
                     nom_prenom_classement = classement + '\n    ' + nom + ' ' + prenom + '\n'
                     classement_nom_list.append(nom_prenom_classement)
                     classement_nom_list.sort()
-            return classement_nom_list
+            if len(classement_nom_list) < 2:
+                return 0
+            if len(classement_nom_list) >= 2:
+                del classement_nom_list[0]
+                return classement_nom_list
 
     def joueurs_tournoi():
         with open('data/joueurs.json', 'r') as joueurs_data:
             data_dict = json.load(joueurs_data)
             classement_nom_list = []
-            indice_joueur = 1
+            indice_joueur = 0
             nom = ''
             prenom = ''
             classement = ''
@@ -146,4 +154,18 @@ class Joueur:
                         ' ' + prenom + '\n   ' + classement + '\n'
                     classement_nom_list.append(indice_nom_prenom_classement)
                     indice_joueur += 1
-            return classement_nom_list
+            if len(classement_nom_list) < 9:
+                return 0
+            if len(classement_nom_list) >= 9:
+                del classement_nom_list[0]
+                return classement_nom_list
+
+    def get_joueurs_tournoi(liste_indice_selection, liste_nom_joueurs):
+        liste_nom_joueurs_selection = []
+        liste_nom_joueurs_new = []
+        for arg in liste_nom_joueurs:
+            arg = str(arg).replace("\n", "")
+            liste_nom_joueurs_new.append(arg)
+        for indice in liste_indice_selection:
+            liste_nom_joueurs_selection.append(liste_nom_joueurs_new[indice])
+        return liste_nom_joueurs_selection

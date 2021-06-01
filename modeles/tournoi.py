@@ -90,7 +90,13 @@ class Tournoi:
         #         continue
 
         print("\n---------------------------\n\nListe des joueurs :\n")
-        for arg in Joueur.joueurs_tournoi():
+        liste_joueurs_tournois = Joueur.joueurs_tournoi()
+        if liste_joueurs_tournois == 0:
+            print("Il n'y a pas ou pas suffisament de joueurs pour organiser un tounois\
+                , veuillez ajouter des joueurs via le menu.")
+            input("\nAppuyer sur entrer pour continuer")
+            return
+        for arg in liste_joueurs_tournois:
             print(arg)
         x = 8
         while x != 0:
@@ -101,6 +107,7 @@ class Tournoi:
                 sl(2)
                 continue
             x -= 1
+        joueurs = Joueur.get_joueurs_tournoi(joueurs, Joueur.joueurs_alpha())
 
         print("\n---------------------------")
         temps_choix = 0
@@ -158,4 +165,8 @@ class Tournoi:
                     nom_lieu_date = nom + '\n' + lieu + '\n' + date + '\n'
                     tournoi_list.append(nom_lieu_date)
                     tournoi_list.sort()
-            return tournoi_list
+            if len(tournoi_list) < 2:
+                return 0
+            if len(tournoi_list) >= 1:
+                del tournoi_list[0]
+                return tournoi_list

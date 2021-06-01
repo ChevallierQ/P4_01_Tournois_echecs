@@ -18,12 +18,22 @@ def menu_joueur_liste():
             continue
         if choix_menu_liste_joueur == 1:
             print("\n---------------------------\n")
-            for arg in Joueur.joueurs_alpha():
+            liste_joueurs_alpha = Joueur.joueurs_alpha()
+            if liste_joueurs_alpha == 0:
+                print("Il n'y a aucun joueurs d'enregistrer, veuillez ajouter des joueurs via le menu.")
+                input("\nAppuyer sur entrer pour continuer")
+                return
+            for arg in liste_joueurs_alpha:
                 print(arg)
             input("\nAppuyer sur entrer pour continuer")
         if choix_menu_liste_joueur == 2:
             print("\n---------------------------\n")
-            for arg in Joueur.joueurs_classement():
+            liste_joueurs_classement = Joueur.joueurs_classement()
+            if liste_joueurs_classement == 0:
+                print("Il n'y a aucun joueurs d'enregistrer, veuillez ajouter des joueurs via le menu.")
+                input("\nAppuyer sur entrer pour continuer")
+                return
+            for arg in liste_joueurs_classement:
                 print(arg)
             input("\nAppuyer sur entrer pour continuer")
         if choix_menu_liste_joueur == 3:
