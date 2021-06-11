@@ -167,5 +167,22 @@ class Joueur:
             arg = str(arg).replace("\n", "")
             liste_nom_joueurs_new.append(arg)
         for indice in liste_indice_selection:
-            liste_nom_joueurs_selection.append(liste_nom_joueurs_new[indice])
+            liste_nom_joueurs_selection.append(liste_nom_joueurs_new[indice-1])
         return liste_nom_joueurs_selection
+
+    def get_classement_joueur(joueur_selecion):
+        with open('data/joueurs.json', 'r') as joueurs_data:
+            data_dict = json.load(joueurs_data)
+            for joueurs in data_dict.values():
+                for num_joueurs in joueurs.values():
+                    for cle, valeur in num_joueurs.items():
+                        if cle == "nom":
+                            nom = valeur
+                        if cle == "prenom":
+                            prenom = valeur
+                    nom_prenom = nom + " " + prenom
+                    if nom_prenom == joueur_selecion:
+                        for cle, valeur in num_joueurs.items():
+                            if cle == "classement":
+                                joueur_selecion = valeur
+                                return joueur_selecion

@@ -1,6 +1,7 @@
 from time import sleep as sl
 from os import system as sys
 from vues.outils_vues import OutilsVues
+from controleurs.outils_controleurs import OutilsControleurs
 from vues.menu_joueur import menu_joueur
 from modeles.tournoi import Tournoi
 from vues.menu_tournoi import menu_tournoi
@@ -9,7 +10,7 @@ from vues.menu_tournoi import menu_tournoi
 def menu_principal():
     valeur_quitter = 0
     while valeur_quitter != 1:
-        sys("clear")
+        sys(OutilsControleurs.which_os())
         print("\nMenu principal: ")
         print("\n1 - Creer un nouveau tournoi\n2 - Joueurs\n3 - Gestion des tournois\n4 - Quitter")
         try:

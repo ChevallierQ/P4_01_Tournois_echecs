@@ -7,12 +7,11 @@ import json
 
 class Tournoi:
 
-    def __init__(self, nom="", lieu="", date="", nb_tours=4, tournees=0, joueurs=[], temps="", note=""):
+    def __init__(self, nom="", lieu="", date="", nb_tours=4, joueurs=[], temps="", note=""):
         self.nom = nom
         self.lieu = lieu
         self.date = date
         self.nb_tours = nb_tours
-        self.tournees = tournees
         self.joueurs = joueurs
         self.temps = temps
         self.note = note
@@ -80,15 +79,6 @@ class Tournoi:
             if nb_tours_modif == 2:
                 break
 
-        print("\n---------------------------")
-        # while tournees == 0 :
-        #     try:
-        #         tournees = str(input("\nListe des instances rondes : "))
-        #     except ValueError:
-        #         print("\nVous n'avez pas saisi une valeur valide.")
-        #         sl(2)
-        #         continue
-
         print("\n---------------------------\n\nListe des joueurs :\n")
         liste_joueurs_tournois = Joueur.joueurs_tournoi()
         if liste_joueurs_tournois == 0:
@@ -107,7 +97,13 @@ class Tournoi:
                 sl(2)
                 continue
             x -= 1
-        joueurs = Joueur.get_joueurs_tournoi(joueurs, Joueur.joueurs_alpha())
+        y = 1
+        nom_joueurs = []
+        for arg in liste_joueurs_tournois:
+            arg = arg[:-15]
+            nom_joueurs.append(str(arg).replace("Indice joueur : {}\n   ".format(y), "").replace("\n   ", ""))
+            y += 1
+        joueurs = Joueur.get_joueurs_tournoi(joueurs, nom_joueurs)
 
         print("\n---------------------------")
         temps_choix = 0
@@ -141,10 +137,10 @@ class Tournoi:
                 break
 
         instance_class = OutilsVues()
-        if instance_class.sauvegarde(nom, lieu, date, nb_tours, tournees, joueurs, temps, note) == 1:
+        if instance_class.sauvegarde(nom, lieu, date, nb_tours, joueurs, temps, note) == 1:
             instance_class_serialiser = OutilsControleurs()
             instance_class_serialiser.serialiser_instance_tournoi(nom, lieu, date,
-                                                                  nb_tours, tournees, joueurs, temps, note)
+                                                                  nb_tours, joueurs, temps, note)
 
     def tournois_liste():
         with open('data/tournoi.json', 'r') as tournois_data:
@@ -170,3 +166,21 @@ class Tournoi:
             if len(tournoi_list) >= 1:
                 del tournoi_list[0]
                 return tournoi_list
+
+    def get_data_tournoi(indice_tournoi_selction):
+        with open('data/tournoi.json', 'r') as get_data:
+            data_dict = json.load(get_data)
+            for tournoi in data_dict.values():
+                for num_tournoi in tournoi.items():
+                    num_tournoi_str = str(num_tournoi[0:1])
+                    if num_tournoi_str[2] == str(indice_tournoi_selction):
+                        return num_tournoi
+                    else:
+                        continue
+
+    def get_joueurs_tournoi_reprise(data_tournoi_reprise):
+        for arg in data_tournoi_reprise:
+            dict_data = arg
+        for cle, valeur in dict_data.items():
+            if cle == "joueurs":
+                return valeur

@@ -1,5 +1,5 @@
 from tinydb import TinyDB
-from time import sleep as sl
+from sys import platform
 import re
 
 
@@ -23,13 +23,12 @@ class OutilsControleurs:
         table_joueurs.insert(serialized_player)
         self.compteur_joueurs_serialiser += 1
 
-    def serialiser_instance_tournoi(self, nom, lieu, date, nb_tours, tournees, joueurs, temps, note):
+    def serialiser_instance_tournoi(self, nom, lieu, date, nb_tours, joueurs, temps, note):
         serialized_tournoi = {
             'nom': nom,
             'lieu': lieu,
             'date': date,
             'nombre de tours': nb_tours,
-            'tournees': tournees,
             'joueurs': joueurs,
             'temps': temps,
             'note': note
@@ -45,9 +44,27 @@ class OutilsControleurs:
             return 0
         if len(date) < 10:
             return 1
-        test_date = re.match(r'[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]', date)
+        test_date = re.match(r'[0-3][0-9]/[0-1][0-9]/[0-9][0-9][0-9][0-9]', date)
         if test_date:
             return 2
         else:
             return 3
-        sl(2)
+
+    def which_os():
+        if platform == "linux" or platform == "linux2":
+            return '"cls"'
+        elif platform == "darwin":
+            return '"clear"'
+        elif platform == "win32":
+            return '"cls"'
+
+    def test_heure(heure):
+        if len(heure) > 5:
+            return 0
+        if len(heure) < 5:
+            return 1
+        test_heure = re.match(r'[0-2][0-9]:[0-5][0-9]', heure)
+        if test_heure:
+            return 2
+        else:
+            return 3

@@ -1,13 +1,14 @@
 from time import sleep as sl
 from os import system as sys
 from vues.outils_vues import OutilsVues
+from controleurs.outils_controleurs import OutilsControleurs
 from modeles.joueur import Joueur
 
 
 def menu_joueur_liste():
     valeur_quitter = 0
     while valeur_quitter != 1:
-        sys("clear")
+        sys(OutilsControleurs.which_os())
         print("\nMenu liste des joueurs: ")
         print("\n1 - Par ordre alphabétique\n2 - Par classement\n3 - Retour\n4 - Quitter")
         try:
