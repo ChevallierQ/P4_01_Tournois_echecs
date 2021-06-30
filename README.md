@@ -9,7 +9,7 @@ Ouvrez votre terminal Shell puis :
 cd ..\P4_01_tounois_echecs
 python -m venv env
 env\Scripts\activate.bat
-pip install -a requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Installation pour MacOs/Linux : 
